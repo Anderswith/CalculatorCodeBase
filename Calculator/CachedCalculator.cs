@@ -9,44 +9,44 @@ public class CachedCalculator : ICalculator
     
     public int Add(int a, int b)
     {
-        var calc = GetCachedResult<int>(a, b) ?? StoreInCache(_calculator.Add(a, b), a, b);
+        var calc = StoreInCache(_calculator.Add(a, b), a, b);
         return calc.Result;
     }
 
     public int Subtract(int a, int b)
     {        
-        var calc = GetCachedResult<int>(a, b) ?? StoreInCache(_calculator.Subtract(a, b), a, b);
+        var calc = StoreInCache(_calculator.Subtract(a, b), a, b);
         return calc.Result;
     }
 
     public int Multiply(int a, int b)
     {        
-        var calc = GetCachedResult<int>(a, b) ?? StoreInCache(_calculator.Multiply(a, b), a, b);
+        var calc = StoreInCache(_calculator.Multiply(a, b), a, b);
         return calc.Result;
     }
 
     public int Divide(int a, int b)
     {        
-        var calc = GetCachedResult<int>(a, b) ?? StoreInCache(_calculator.Divide(a, b), a, b);
+        var calc = StoreInCache(_calculator.Divide(a, b), a, b);
         return calc.Result;
     }
 
     public int Factorial(int n)
     {
-        var calc = GetCachedResult<int>(n) ?? StoreInCache(_calculator.Factorial(n), n);
+        var calc = StoreInCache(_calculator.Factorial(n), n);
         return calc.Result;
     }
 
     public bool IsPrime(int candidate)
     {
-        var calc = GetCachedResult<bool>(candidate) ?? StoreInCache(_calculator.IsPrime(candidate), candidate);
+        var calc = StoreInCache(_calculator.IsPrime(candidate), candidate);
         return calc.Result;
     }
     
     private Calculation<T>? GetCachedResult<T>(int a, int? b = null, [CallerMemberName]string operation = "")
     {
         var calc = new Calculation<T>(default, operation, a, b);
-        if (_cache.ContainsKey(calc.GetKey()))
+        if (!(_cache.ContainsKey(calc.GetKey())))
         {
             return (Calculation<T>?)_cache[calc.GetKey()];
         }
@@ -58,6 +58,7 @@ public class CachedCalculator : ICalculator
         var calc = new Calculation<T>(result, operation, a, b);
         calc.Result = result;
         _cache.Add(calc.GetKey(), calc);
+        ;
         return calc;
     }
     
@@ -73,7 +74,8 @@ public class CachedCalculator : ICalculator
             B = b;
             Operation = operation;
         }
-    
+        
+
         public string GetKey()
         {
             return string.Concat(A, Operation, B);
