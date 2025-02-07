@@ -46,7 +46,7 @@ public class CachedCalculator : ICalculator
     private Calculation<T>? GetCachedResult<T>(int a, int? b = null, [CallerMemberName]string operation = "")
     {
         var calc = new Calculation<T>(default, operation, a, b);
-        if (!(_cache.ContainsKey(calc.GetKey())))
+        if (_cache.ContainsKey(calc.GetKey()))
         {
             return (Calculation<T>?)_cache[calc.GetKey()];
         }
