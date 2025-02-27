@@ -58,7 +58,6 @@ public class CachedCalculator : ICalculator
         var calc = new Calculation<T>(result, operation, a, b);
         calc.Result = result;
         _cache.Add(calc.GetKey(), calc);
-        ;
         return calc;
     }
     
