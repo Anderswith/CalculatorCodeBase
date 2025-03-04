@@ -12,6 +12,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history for accurate results of code analysis
+          
+      - name: Application Version
+        id: semver-app
+        uses: paulhatch/semantic-version@5.4.0
+        with:
+          bump_each_commit: true
+          
+      - name: Display Version
+        run: echo "Generated version is ${{ steps.semver-app.outputs.version}}
 
       - name: Install required tools
         run: |
