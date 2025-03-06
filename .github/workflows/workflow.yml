@@ -20,7 +20,7 @@ jobs:
           bump_each_commit: true
           
       - name: Display Version
-        run: echo "Generated version is ${{ steps.semver-app.outputs.version}}
+        run: echo "Generated version is ${{ steps.semver-app.outputs.version}}"
 
       - name: Install required tools
         run: |
