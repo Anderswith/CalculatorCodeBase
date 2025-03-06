@@ -23,7 +23,7 @@ jobs:
         run: |
           dotnet sonarscanner begin \
             /k:"AW-My-Demo-Project" \
-            /d:sonar.host.url="http://62.164.217.208:9000/" \
+            /d:sonar.host.url="${{vars.SECRET_SONAR_URL}}" \
             /d:sonar.token="${{ secrets.SECRET_SONAR_TOKEN }}" \
             /d:sonar.coverageReportPaths="coverage-report/SonarQube.xml" \
             /d:sonar.qualitygate.wait=true \
