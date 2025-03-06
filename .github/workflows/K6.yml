@@ -14,15 +14,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install K6
+      - name: Install K6 (Direct Binary Download)
         run: |
-          # Add K6's GPG key and APT repository
-          curl -fsSL https://dl.k6.io/deb/k6.asc | sudo tee /etc/apt/trusted.gpg.d/k6.asc
-          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-          
-          # Update the package list and install K6
-          sudo apt update
-          sudo apt install k6 -y
+          # Download the K6 binary
+          wget https://github.com/k6io/k6/releases/download/v0.45.0/k6-linux-amd64-v0.45.0.tar.gz
+          # Extract the archive
+          tar -xvzf k6-linux-amd64-v0.45.0.tar.gz
+          # Move the binary to a directory in PATH
+          sudo mv k6-linux-amd64-v0.45.0/k6 /usr/local/bin/k6
 
       - name: Run K6 Load Test
         run: k6 run test-script.js
