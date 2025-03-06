@@ -16,13 +16,16 @@ jobs:
 
       - name: Install K6
         run: |
-          wget -qO- https://dl.k6.io/deb/k6.asc | sudo tee /etc/apt/trusted.gpg.d/k6.asc
+          # Add K6's GPG key and APT repository
+          curl -fsSL https://dl.k6.io/deb/k6.asc | sudo tee /etc/apt/trusted.gpg.d/k6.asc
           echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          
+          # Update the package list and install K6
           sudo apt update
           sudo apt install k6 -y
 
       - name: Run K6 Load Test
-        run: k6 run K6-script.js
+        run: k6 run test-script.js
 
       - name: Upload K6 Test Results (optional)
         if: always()
