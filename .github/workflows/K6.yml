@@ -16,14 +16,14 @@ jobs:
 
       - name: Install K6 (Direct Binary Download)
         run: |
-          # Download the latest K6 binary (v0.45.1 or newer)
-          wget https://github.com/grafana/k6/releases/download/v0.45.1/k6-linux-amd64-v0.45.1.tar.gz
+          # Download the K6 binary for version v0.57.0
+          wget https://github.com/grafana/k6/releases/download/v0.57.0/k6-linux-amd64-v0.57.0.tar.gz
           
           # Extract the archive
-          tar -xvzf k6-linux-amd64-v0.45.1.tar.gz
+          tar -xvzf k6-linux-amd64-v0.57.0.tar.gz
           
           # Move the binary to a directory in PATH
-          sudo mv k6-linux-amd64-v0.45.1/k6 /usr/local/bin/k6
+          sudo mv k6-linux-amd64-v0.57.0/k6 /usr/local/bin/k6
 
       - name: Run K6 Load Test
         run: k6 run test-script.js
