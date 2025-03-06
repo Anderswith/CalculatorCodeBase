@@ -22,9 +22,9 @@ jobs:
       - name: Start Static Code Analysis
         run: |
           dotnet sonarscanner begin \
-            /k:"AW-My-Demo-Project" \ 
+            /k:"AW-My-Demo-Project" \
             /d:sonar.host.url="http://62.164.217.208:9000/" \
-            /d:sonar.token="${{secrets.SECRET_SONAR_TOKEN}}" \
+            /d:sonar.token="${{ secrets.SECRET_SONAR_TOKEN }}" \
             /d:sonar.coverageReportPaths="coverage-report/SonarQube.xml" \
             /d:sonar.qualitygate.wait=true \
             /d:sonar.qualitygate.timeout=300
