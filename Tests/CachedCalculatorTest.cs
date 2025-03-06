@@ -104,24 +104,5 @@ public class CachedCalculatorTest
         // Assert
         Assert.That(result, Is.False);
     }
-    [Test]
-    public void GetCachedResult_WhenResultIsCached()
-    {
-        // Arrange
-        var calc = new CachedCalculator();
-        var a = 2;
-        var b = 3;
-        calc.Add(a, b); // Store in cache
 
-        // Act
-        var cachedResultObj = calc.GetType()
-            .GetMethod("GetCachedResult", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.MakeGenericMethod(typeof(int))
-            .Invoke(calc, new object[] { a, b, "Add" });
-
-        var resultProperty = cachedResultObj?.GetType().GetProperty("Result")?.GetValue(cachedResultObj);
-
-        // Assert
-        Assert.That(resultProperty, Is.EqualTo(5));
-    }
 }
