@@ -1,0 +1,30 @@
+name: Run K6 Load Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install K6
+        run: |
+          curl -s https://packagecloud.io/install/repositories/loadimpact/k6/script.deb.sh | sudo bash
+          sudo apt-get install k6 -y
+
+      - name: Run K6 Load Test
+        run: k6 run test-script.js
+
+      - name: Upload K6 Test Results (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-results
+          path: results/
